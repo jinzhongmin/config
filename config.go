@@ -152,7 +152,6 @@ func (config *Config) Views(begin []string, end []string) []*View {
 	for i := 0; i < len(config.lines); i++ {
 		lines := make([]*Line, 0)
 		line := config.lines[i]
-
 		if len(line.args) < len(begin) {
 			continue
 		}
@@ -172,7 +171,7 @@ func (config *Config) Views(begin []string, end []string) []*View {
 			for i = i + 1; i < len(config.lines); i++ {
 				line = config.lines[i]
 
-				if len(line.args) < len(begin) {
+				if len(line.args) < len(end) {
 					lines = append(lines, line)
 					continue
 				}
