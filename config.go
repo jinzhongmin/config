@@ -39,7 +39,7 @@ func clean(text string) string {
 	for i := 20; i > 0; i-- {
 		text = strings.Replace(text, "\r\n"+blank(i), ";;;"+strconv.Itoa(i)+";", -1)
 		if i > 1 {
-			text = strings.Replace(text, blank(i), "", -1)
+			text = strings.Replace(text, blank(i), " ", -1)
 		}
 	}
 
@@ -254,24 +254,25 @@ func NewLine(line string) *Line {
 	return l
 }
 
-//NextS ..
-func (line *Line) NextS(arg string) string {
+//NextStr ..
+func (line *Line) NextStr(arg string) string {
 	for i := range line.args {
 		if line.args[i] == arg && len(line.args) > i+1 {
-			return line.args[i]
+			return line.args[i+1]
 		}
 	}
 	return ""
 }
 
-//NextI ..
-func (line *Line) NextI(arg string) int {
+//NextInt ..
+func (line *Line) NextInt(arg string) int {
 	for i := range line.args {
-		if line.args[i] == arg && len(line.args)-1 > i {
-			r, err := strconv.Atoi(line.args[i])
+		if line.args[i] == arg && len(line.args) > i+1 {
+			r, err := strconv.Atoi(line.args[i+1])
 			if err != nil {
-				return r
+				return -1
 			}
+			return r
 		}
 	}
 	return -1
